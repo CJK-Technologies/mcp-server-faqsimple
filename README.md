@@ -44,15 +44,7 @@ npm install mcp-server-faqsimple
 
 #### 1. Get Your API Key
 
-Generate an API key from your FAQsimple dashboard or use the CLI:
-
-```bash
-# If you have access to FAQsimple CLI tools
-node scripts/generate-api-key.mjs \\
-  --user-id=your-user-profile-id \\
-  --description="MCP Server Integration" \\
-  --days=90
-```
+Request an API key from your FAQsimple dashboard or support.
 
 #### 2. Configure Claude Desktop
 
