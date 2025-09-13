@@ -17,8 +17,8 @@ import {
   McpError,
   ReadResourceRequestSchema,
 } from '@modelcontextprotocol/sdk/types.js';
-import { FAQsimpleAPI } from './faqsimple-api.js';
-import type { ServerConfig } from './types.js';
+import { FAQsimpleAPI } from './faqsimple-api';
+import type { ServerConfig } from './types';
 
 class FAQsimpleMCPServer {
   private server: Server;
@@ -29,12 +29,6 @@ class FAQsimpleMCPServer {
       {
         name: 'mcp-server-faqsimple',
         version: '1.0.0',
-      },
-      {
-        capabilities: {
-          resources: {},
-          tools: {},
-        },
       }
     );
 
@@ -365,7 +359,7 @@ async function main(): Promise<void> {
 }
 
 // Only run if this file is executed directly
-if (import.meta.url === `file://${process.argv[1]}`) {
+if (require.main === module) {
   main().catch((error) => {
     console.error('Unhandled error:', error);
     process.exit(1);

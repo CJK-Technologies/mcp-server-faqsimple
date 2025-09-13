@@ -4,7 +4,7 @@
  */
 
 import fetch from 'node-fetch';
-import type { FAQListResponse, FAQContent, SearchResult, ServerConfig } from './types.js';
+import type { FAQListResponse, FAQContent, SearchResult, ServerConfig } from './types';
 
 export class FAQsimpleAPI {
   private apiKey: string;
