@@ -10,6 +10,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Initial project setup and structure
 
+## [1.0.1] - 2024-01-15
+
+### Changed
+- **API Base URL**: Updated default API base URL from `https://api.faqsimple.com/v1` to `https://api.faqsimple.io/v1`
+- Updated environment configuration and documentation to reflect new API endpoint
+
 ## [1.0.0] - 2024-01-15
 
 ### Added

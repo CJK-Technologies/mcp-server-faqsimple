@@ -58,7 +58,7 @@ Add the server to your Claude Desktop configuration file:
   "mcpServers": {
     "faqsimple": {
       "command": "npx",
-      "args": ["mcp-server-faqsimple"],
+      "args": ["-y", "mcp-server-faqsimple"],
       "env": {
         "FAQSIMPLE_API_KEY": "fs.your.api.key.here"
       }

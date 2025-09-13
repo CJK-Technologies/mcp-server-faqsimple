@@ -39,7 +39,7 @@ class FAQsimpleMCPServer {
     // Initialize API client
     const config: ServerConfig = {
       apiKey: process.env.FAQSIMPLE_API_KEY || '',
-      baseURL: process.env.FAQSIMPLE_API_BASE || 'https://api.faqsimple.com/v1',
+      baseURL: process.env.FAQSIMPLE_API_BASE || 'https://api.faqsimple.io/v1',
       cacheTimeout: parseInt(process.env.CACHE_TIMEOUT || '300000'),
       rateLimitDelay: parseInt(process.env.RATE_LIMIT_DELAY || '1000'),
     };

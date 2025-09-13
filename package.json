@@ -1,6 +1,6 @@
 {
   "name": "mcp-server-faqsimple",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "MCP Server for FAQsimple - Enable AI assistants to access and reference your FAQ content through the Model Context Protocol",
   "keywords": [
     "mcp",
@@ -32,14 +32,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/your-org/mcp-server-faqsimple.git"
+    "url": "git+https://github.com/CJK-Technologies/mcp-server-faqsimple.git"
   },
-  "author": "Your Organization",
+  "author": "CJK Technologies",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/your-org/mcp-server-faqsimple/issues"
+    "url": "https://github.com/CJK-Technologies/mcp-server-faqsimple/issues"
   },
-  "homepage": "https://github.com/your-org/mcp-server-faqsimple#readme",
+  "homepage": "https://github.com/CJK-Technologies/mcp-server-faqsimple#readme",
   "engines": {
     "node": ">=18.0.0",
     "npm": ">=9.0.0"

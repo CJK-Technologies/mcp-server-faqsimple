@@ -17,7 +17,7 @@ export class FAQsimpleAPI {
 
   constructor(config: ServerConfig) {
     this.apiKey = config.apiKey;
-    this.baseURL = config.baseURL || 'https://api.faqsimple.com/v1';
+    this.baseURL = config.baseURL || 'https://api.faqsimple.io/v1';
     this.rateLimitDelay = config.rateLimitDelay || 1000;
     this.cacheTimeout = config.cacheTimeout || 300000; // 5 minutes
 
