@@ -48,7 +48,45 @@ class FAQsimpleMCPServer {
       throw new Error('FAQSIMPLE_API_KEY environment variable is required');
     }
 
-    this.faqAPI = new FAQsimpleAPI(config);
+    try {
+      this.faqAPI = new FAQsimpleAPI(config);
+      
+      // Perform initial health check
+      this.performInitialHealthCheck().catch(error => {
+        console.error('[FAQsimple MCP Server] Initial health check failed:', error.message);
+      });
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error('[FAQsimple MCP Server] Configuration error:', error.message);
+        throw error;
+      }
+      throw new Error('Failed to initialize FAQsimple API client');
+    }
+  }
+
+  private async performInitialHealthCheck(): Promise<void> {
+    try {
+      console.error('[FAQsimple MCP Server] Performing initial health check...');
+      const health = await this.faqAPI.healthCheck();
+      
+      if (health.status === 'ok') {
+        console.error('[FAQsimple MCP Server] ✅ Connection and authentication successful');
+      } else if (health.status === 'connection_error') {
+        console.error(`[FAQsimple MCP Server] ❌ Connection Error: ${health.message}`);
+      } else if (health.status === 'auth_error') {
+        console.error(`[FAQsimple MCP Server] ❌ Authentication Error: ${health.message}`);
+      } else {
+        console.error(`[FAQsimple MCP Server] ⚠️  Health Check Warning: ${health.message}`);
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        if (error.message.includes('placeholder API key')) {
+          console.error('[FAQsimple MCP Server] ❌ Configuration Error: Please replace the placeholder API key with your actual FAQsimple API key');
+        } else {
+          console.error(`[FAQsimple MCP Server] ❌ Health check failed: ${error.message}`);
+        }
+      }
+    }
   }
 
   private setupToolHandlers(): void {
@@ -246,7 +284,25 @@ class FAQsimpleMCPServer {
         }
         
         const errorMessage = error instanceof Error ? error.message : String(error);
-        console.error(`Error in tool ${name}:`, errorMessage);
+        console.error(`[FAQsimple MCP Server] Error in tool ${name}:`, errorMessage);
+        
+        // Check for specific error types and provide user-friendly messages
+        if (errorMessage.includes('Network error') || errorMessage.includes('Unable to connect')) {
+          throw new McpError(
+            ErrorCode.InternalError,
+            'Unable to connect to https://api.faqsimple.io/v1. Please ensure you have a valid connection.'
+          );
+        } else if (errorMessage.includes('401') || errorMessage.includes('403') || errorMessage.includes('Invalid API key')) {
+          throw new McpError(
+            ErrorCode.InternalError,
+            'Your API Key seems invalid, please contact FAQsimple support (support@faqsimple.com) for assistance if needed.'
+          );
+        } else if (errorMessage.includes('placeholder API key')) {
+          throw new McpError(
+            ErrorCode.InvalidParams,
+            'Please replace the placeholder API key with your actual FAQsimple API key'
+          );
+        }
         
         throw new McpError(
           ErrorCode.InternalError,
@@ -270,7 +326,16 @@ class FAQsimpleMCPServer {
           })),
         };
       } catch (error) {
-        console.error('Error listing resources:', error);
+        const errorMessage = error instanceof Error ? error.message : String(error);
+        console.error('[FAQsimple MCP Server] Error listing resources:', errorMessage);
+        
+        // Provide user-friendly error logging
+        if (errorMessage.includes('Network error') || errorMessage.includes('Unable to connect')) {
+          console.error('[FAQsimple MCP Server] ❌ Connection Error: Unable to connect to https://api.faqsimple.io/v1. Please ensure you have a valid connection.');
+        } else if (errorMessage.includes('401') || errorMessage.includes('403') || errorMessage.includes('Invalid API key')) {
+          console.error('[FAQsimple MCP Server] ❌ Authentication Error: Your API Key seems invalid, please contact FAQsimple support (support@faqsimple.com) for assistance if needed.');
+        }
+        
         return { resources: [] };
       }
     });

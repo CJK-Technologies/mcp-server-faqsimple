@@ -32,6 +32,12 @@ describe('FAQsimpleAPI', () => {
       }).toThrow('Invalid API key format. API key must start with "fs."');
     });
 
+    it('should throw error with placeholder API key', () => {
+      expect(() => {
+        new FAQsimpleAPI({ apiKey: 'fs.your.api.key.here' });
+      }).toThrow('Please replace the placeholder API key with your actual FAQsimple API key');
+    });
+
     it('should use default base URL when not provided', () => {
       const defaultApi = new FAQsimpleAPI({ apiKey: 'fs.test.key' });
       expect(defaultApi).toBeDefined();
@@ -155,6 +161,73 @@ describe('FAQsimpleAPI', () => {
           method: 'GET'
         })
       );
+    });
+  });
+
+  describe('healthCheck', () => {
+    it('should return success status when API is accessible', async () => {
+      const mockResponse = {
+        total_count: 1,
+        faqs: [{ faq_number: 'FAQ001', name: 'Test FAQ' }]
+      };
+
+      mockFetch.mockResolvedValueOnce({
+        ok: true,
+        status: 200,
+        headers: {
+          get: jest.fn().mockReturnValue('50')
+        },
+        json: jest.fn().mockResolvedValue(mockResponse)
+      } as any);
+
+      const health = await api.healthCheck();
+      
+      expect(health.status).toBe('ok');
+      expect(health.message).toBe('Connection and authentication successful');
+    });
+
+    it('should return connection error for network failures', async () => {
+      mockFetch.mockRejectedValueOnce(new TypeError('fetch failed'));
+
+      const health = await api.healthCheck();
+      
+      expect(health.status).toBe('connection_error');
+      expect(health.message).toContain('Unable to connect to');
+      expect(health.message).toContain('Please ensure you have a valid connection');
+    });
+
+    it('should return auth error for 401 responses', async () => {
+      mockFetch.mockResolvedValueOnce({
+        ok: false,
+        status: 401,
+        statusText: 'Unauthorized',
+        headers: {
+          get: jest.fn().mockReturnValue('0')
+        },
+        json: jest.fn().mockResolvedValue({ message: 'Invalid API key' })
+      } as any);
+
+      const health = await api.healthCheck();
+      
+      expect(health.status).toBe('auth_error');
+      expect(health.message).toBe('Your API Key seems invalid, please contact FAQsimple support (support@faqsimple.com) for assistance if needed.');
+    });
+
+    it('should return auth error for 403 responses', async () => {
+      mockFetch.mockResolvedValueOnce({
+        ok: false,
+        status: 403,
+        statusText: 'Forbidden',
+        headers: {
+          get: jest.fn().mockReturnValue('0')
+        },
+        json: jest.fn().mockResolvedValue({ message: 'Forbidden' })
+      } as any);
+
+      const health = await api.healthCheck();
+      
+      expect(health.status).toBe('auth_error');
+      expect(health.message).toBe('Your API Key seems invalid, please contact FAQsimple support (support@faqsimple.com) for assistance if needed.');
     });
   });
 

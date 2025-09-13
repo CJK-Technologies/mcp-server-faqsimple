@@ -1,6 +1,6 @@
 {
   "name": "mcp-server-faqsimple",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "MCP Server for FAQsimple - Enable AI assistants to access and reference your FAQ content through the Model Context Protocol",
   "keywords": [
     "mcp",

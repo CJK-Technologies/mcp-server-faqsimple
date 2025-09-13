@@ -10,6 +10,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Initial project setup and structure
 
+## [1.0.2] - 2024-01-15
+
+### Added
+- **Health Check System**: Added comprehensive health check functionality to validate API connectivity and authentication on server startup
+- **User-friendly Error Messages**: Implemented specific error messages for common connection and authentication issues
+- **Placeholder API Key Detection**: Added validation to detect and warn about placeholder API keys
+
+### Enhanced
+- **Error Handling**: Improved error handling in tool handlers and resource handlers with specific user guidance
+- **Logging**: Added detailed logging for connection and authentication issues with clear action items
+- **Test Coverage**: Added comprehensive tests for health check functionality and error scenarios
+
+### Messages Added
+- Connection Error: "Unable to connect to https://api.faqsimple.io/v1. Please ensure you have a valid connection."
+- Authentication Error: "Your API Key seems invalid, please contact FAQsimple support (support@faqsimple.com) for assistance if needed."
+
 ## [1.0.1] - 2024-01-15
 
 ### Changed

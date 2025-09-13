@@ -24,6 +24,10 @@ export class FAQsimpleAPI {
     if (!this.apiKey || !this.apiKey.startsWith('fs.')) {
       throw new Error('Invalid API key format. API key must start with "fs."');
     }
+    
+    if (this.apiKey === 'fs.your.api.key.here' || this.apiKey === 'fs.your.actual.api.key.here') {
+      throw new Error('Please replace the placeholder API key with your actual FAQsimple API key');
+    }
   }
 
   /**
@@ -89,6 +93,44 @@ export class FAQsimpleAPI {
     const data = await fetchFn();
     this.cache.set(key, { data, timestamp: Date.now() });
     return data;
+  }
+
+  /**
+   * Health check to verify API connectivity and authentication
+   */
+  async healthCheck(): Promise<{ status: string; message: string }> {
+    try {
+      // Try to make a simple request to verify both connectivity and auth
+      await this.makeRequest<FAQListResponse>('listfaqs');
+      return { status: 'ok', message: 'Connection and authentication successful' };
+    } catch (error) {
+      if (error instanceof Error) {
+        if (error.message.includes('Network error') || error.message.includes('fetch')) {
+          return { 
+            status: 'connection_error', 
+            message: `Unable to connect to ${this.baseURL}. Please ensure you have a valid connection.`
+          };
+        } else if (error.message.includes('401') || error.message.includes('Invalid API key')) {
+          return { 
+            status: 'auth_error', 
+            message: 'Your API Key seems invalid, please contact FAQsimple support (support@faqsimple.com) for assistance if needed.'
+          };
+        } else if (error.message.includes('403')) {
+          return { 
+            status: 'auth_error', 
+            message: 'Your API Key seems invalid, please contact FAQsimple support (support@faqsimple.com) for assistance if needed.'
+          };
+        }
+        return { 
+          status: 'error', 
+          message: `API Error: ${error.message}`
+        };
+      }
+      return { 
+        status: 'error', 
+        message: 'Unknown error occurred during health check'
+      };
+    }
   }
 
   /**
