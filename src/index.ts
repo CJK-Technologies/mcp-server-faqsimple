@@ -20,7 +20,7 @@ import {
 import { FAQsimpleAPI } from './faqsimple-api';
 import type { ServerConfig } from './types';
 
-class FAQsimpleMCPServer {
+export class FAQsimpleMCPServer {
   private server: Server;
   private faqAPI: FAQsimpleAPI;
 

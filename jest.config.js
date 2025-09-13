@@ -17,7 +17,7 @@ module.exports = {
   coverageReporters: ['text', 'lcov', 'html'],
   moduleFileExtensions: ['ts', 'js', 'json'],
   transformIgnorePatterns: [
-    'node_modules/(?!(node-fetch|data-uri-to-buffer|fetch-blob|formdata-polyfill)/)'
+    'node_modules/(?!(node-fetch|data-uri-to-buffer|fetch-blob|formdata-polyfill|@modelcontextprotocol)/)'
   ],
   setupFilesAfterEnv: [],
 };
