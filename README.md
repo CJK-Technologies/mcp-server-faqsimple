@@ -72,7 +72,7 @@ Add the server to your Claude Desktop configuration file:
 | Variable | Required | Default | Description |
 |----------|----------|---------|-------------|
 | `FAQSIMPLE_API_KEY` | ✅ Yes | - | Your FAQsimple API key (starts with `fs.`) |
-| `FAQSIMPLE_API_BASE` | No | `https://api.faqsimple.com/v1` | API base URL |
+| `FAQSIMPLE_API_BASE` | No | `https://api.faqsimple.io/v1` | API base URL |
 | `CACHE_TIMEOUT` | No | `300000` | Cache timeout in milliseconds (5 minutes) |
 | `RATE_LIMIT_DELAY` | No | `1000` | Delay between requests in milliseconds |
 
