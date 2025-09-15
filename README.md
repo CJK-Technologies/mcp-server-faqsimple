@@ -278,4 +278,4 @@ See [CHANGELOG.md](CHANGELOG.md) for a detailed history of changes.
 
 **Built with ❤️ for the FAQsimple and MCP communities**
 
-*This is an open-source project. It keeps your specific API endpoints, auth, and business logic private while providing a solid foundation for MCP integration.*
+*This is an open-source project; it's not perfect, but it attempts to provide a solid foundation for MCP integration.*
