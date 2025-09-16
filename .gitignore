@@ -163,3 +163,6 @@ error.log
 *.pem
 secrets/
 config/local.json
+
+# Claude Code specific files
+CLAUDE.md
