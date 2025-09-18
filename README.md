@@ -262,7 +262,7 @@ This project is licensed under the Apache 2.0 License - see the [LICENSE](LICENS
 
 - **Bug Reports:** [GitHub Issues](https://github.com/CJK-Technologies/mcp-server-faqsimple/issues)
 - **Feature Requests:** [GitHub Discussions](https://github.com/CJK-Technologies/mcp-server-faqsimple/discussions)
-- **Documentation:** [FAQ Documentation](https://docs.faqsimple.com)
+- **Documentation:** [FAQ Documentation](https://simple.faqsimple.com)
 
 ## 🔄 Changelog
 
@@ -270,7 +270,6 @@ See [CHANGELOG.md](CHANGELOG.md) for a detailed history of changes.
 
 ## 🌟 Related Projects
 
-- [FAQsimple API Documentation](https://docs.faqsimple.com/api)
 - [Model Context Protocol](https://modelcontextprotocol.io/)
 - [Claude Desktop](https://claude.ai/desktop)
 
